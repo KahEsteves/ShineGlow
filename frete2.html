@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Style.css">
+    <title>Calculate shipping</title>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navigation">
+            <a href="index.htmls" class="logo"><span>ShineGlow</span></a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html">Home</a></li>
+                <li class="nav-item"><a href="dolar.html">Conversion</a></li>
+                <li class="nav-item"><a href="carrinho.html">Products</a></li>
+                <i class='bx bx-search'></i>
+            </ul>
+
+            <div class="menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+<main>
+<center>
+    <div class="box">
+        <div class="img-box">
+            <img src="imagem/p70.PNG" alt="">
+      
+        </div>
+       
+
+        <div class="form-box">
+            <h2>Informações</h2><br><br>
+            <h3> Pulôver suéter de poliéster simples</h3>
+
+            <h3>R$ 104</h3>
+            <h6>---------------------------------------------------------</h6>
+
+            <br>
+            <h4>Serviço e politica</h4><br>
+
+            <p class="letra"><img src="imagem/caminhao.PNG" width="18px">  Frete grátis para este produto(UF São Paulo)!</p>
+            
+            <p  class="letra"><img src="imagem/cartão.PNG" width="18px">  Até 6x sem juros no cartão</p>
+
+            <p  class="letra"><img src="imagem/negocio.PNG" width="18px"> 15 dias retornos fáceis com livre pick up</p><br>
+
+            <h5>Informções de entrega</h5>
+
+            <div class="input-group">
+
+                <label for="cep"></label>
+                <input type="text" id="cep"  placeholder="Digite seu CEP" autocomplete="off" required>
+          
+                <br><br>
+
+             
+                <label for="estado"></label>
+                <input type="text" id="estado"  class="inputUser" autocomplete="off" required>
+               
+                <br>
+                <p  class="letra">Data de entrega: Insira o CEP para verificar
+                    </p><br>
+                    
+
+
+                <div class="input-group">
+                 <div id="valor1"></div>
+                 <div id="valor2"></div>
+                 <div id="valor3"></div>
+                 <div id="valor4"></div>
+                 <div id="valor5"></div>
+               </div>
+
+            </div>
+        </div>
+    </div>  
+</center>
+<br><br>
+
+
+
+<footer>
+    <div class="container-footer">
+        <div class="row-footer">
+            <div class="footer-col">
+                <h4>Companies</h4>
+                <ul>
+                    <li> <a href=""> 
+                        Who we are</a> </li>
+                    <li> <a href=""> 
+                        Our services</a> </li>
+                    <li> <a href=""> Privacy Policy</a> </li>
+                    <li> <a href=""> Affiliate program</a> </li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Online store</h4>
+                <ul>
+                    <li> <a href=""> Shine
+                    </a> </li>
+                    <li> <a href=""> Accessories</a> </li>
+                    <li> <a href=""> Models
+                    </a> </li>
+                    <li> <a href=""> Clothes</a> </li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Help</h4>
+                <ul>
+                    <li> <a href=""> FAQ</a> </li>
+                    <li> <a href=""> Transport</a> </li>
+                    <li> <a href=""> Returns</a> </li>
+                    <li> <a href=""> 
+                        Order status</a> </li>
+                    <li> <a href=""> Payment Options</a> </li>
+                </ul>
+            </div>
+            <!-- fim footer -->
+        </div>
+    </div>
+</footer>
+
+<script src="javaScript.js"></script>
+
+</body>
+</html>
+
+<script>
+
+    
+var global;
+//preencher os inputs com arrow functions
+const preencherFormulario = (endereco) => {
+document.getElementById("estado").value = endereco.uf;
+global = endereco.uf
+console.log(global)
+encontrar()
+}
+//autopreenchimento
+const cepValido = (cep) => {
+if (cep.length == 8) {
+    return true;
+} else {
+    return false;
+}
+}
+//buscar API
+//Com async e await podemos trabalhar com código assíncrono em um estilo mais parecido com o bom e velho código síncrono.
+const pesquisarCep = async () => {
+const cep = document.getElementById("cep").value;
+const url = `http://viacep.com.br/ws/${cep}/json/`;
+if (cepValido(cep)) {
+    const dados = await fetch(url);
+    const endereco = await dados.json();
+        preencherFormulario(endereco);
+    }
+}
+document.getElementById("cep").addEventListener("focusout", pesquisarCep);
+
+
+
+const norte = ["AM", "Norte", "RR", "Norte", "AP", "Norte", "AC", "Norte", "TO", 'Norte']
+
+const nordeste = ["MA", "Nordeste", "PI", "Nordeste", "CE", "Nordeste", "RN", "Nordeste", "PB", "Nordeste", "PE", "Nordeste", "AL", "Nordeste", "SE", "Nordeste", "BA", "Nordeste"]
+
+const centroOeste = ["MT", "Centro-Oeste", "GO", "Centro-Oeste", "MS", "Centro-Oeste"]
+
+const sudeste = ["MG", "Sudeste", "ES", "Sudeste", "RJ", "Sudeste", "SP", "Sudeste"]
+
+const sul = ["PR", "Sul", "SC", "Sul", "RS", "Sul"]
+
+function encontrar(){
+
+for(x=0; x< norte.length; x++){
+
+if(norte[x]== global ){
+    document.getElementById("valor1").innerHTML = 'Entrega até Dom, 09 Abr - Qua, 26 Abr <br> Valor do frete R$ 40,30'
+    var regiao = norte [x + 1]
+    console.log(regiao)
+    //console.log(calcula [2])
+    return;
+}
+}
+
+for(x=0; x< nordeste.length; x++){
+
+if(nordeste[x]== global ){
+    document.getElementById("valor2").innerHTML = 'Entrega até Dom, 09 Abr - Qua, 26 Abr <br> Valor do frete R$ 35,30'
+    var regiao = nordeste [x + 1]
+    console.log(regiao)
+    return;
+}
+}
+
+for(x=0; x< centroOeste.length; x++){
+
+if(centroOeste[x]== global ){
+    document.getElementById("valor3").innerHTML = 'Entrega até Dom, 09 Abr - Qua, 26 Abr <br> Valor do frete R$ 20,90'
+    var regiao = centroOeste [x + 1]
+    console.log(regiao)
+    return;
+}
+}
+
+for(x=0; x< sudeste.length; x++){
+
+if(sudeste[x]== global ){
+    document.getElementById("valor4").innerHTML = 'Entrega até Dom, 09 Abr - Qua, 26 Abr <br> Frete gratis'
+    var regiao = sudeste [x + 1]
+    console.log(regiao)
+    return;
+}
+}
+
+for(x=0; x< sul.length; x++){
+
+if(sul[x]== global ){
+    document.getElementById("valor5").innerHTML = 'Entrega até Dom, 09 Abr - Qua, 26 Abr <br> Valor do frete R$ 15,99'
+    var regiao = sul [x + 1]
+    console.log(regiao)
+    return;
+}
+
+}
+}
+
+</script>
